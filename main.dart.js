@@ -91257,7 +91257,7 @@ if(B.c.ba(s,"/settings"))r=3
 m=A.bG(a,n,t.w).w
 q=A.a3(a).apt(B.y,B.FQ)
 p=A.b([o.y_("\u0414\u043e\u043c","assets/icons/house.svg",0,r),o.y_("\u0417\u0430\u0434\u0430\u043d\u0438\u044f","assets/icons/tasks.svg",1,r),o.y_("\u041c\u0430\u0433\u0430\u0437\u0438\u043d","assets/icons/shopping-bag.svg",2,r),o.y_("\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438","assets/icons/settings.svg",3,r)],t.ur)
-return A.ji(n,o.c,new A.u7(q,A.cp(n,A.aZ(new A.AE(p,new A.ael(a),r,B.DT,B.j,B.z,B.ak,12,12,n),80+m.w.d,n),B.q,n,n,new A.bW(B.j,n,new A.dF(new A.aA(B.dS,1,B.n,-1),B.m,B.m,B.m),n,n,n,B.T),n,n,n,n,n,n,n,n),n))},
+return A.ji(n,o.c,new A.u7(q,A.cp(n,A.aZ(new A.AE(p,new A.ael(a),r,B.DT,B.j,B.z,B.ak,12,12,n),150+m.w.d,n),B.q,n,n,new A.bW(B.j,n,new A.dF(new A.aA(B.dS,1,B.n,-1),B.m,B.m,B.m),n,n,n,B.T),n,n,n,n,n,n,n,n),n))},
 y_(a,b,c,d){var s=new A.bf(B.Kt,A.dq(b,new A.eM(d===c?B.z:B.ak,B.b5,null,B.bl),26,26),null)
 return new A.N_(s,s,a)}}
 A.ael.prototype={
