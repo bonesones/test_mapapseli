@@ -90401,7 +90401,7 @@ ki(){var s=0,r=A.H(t.XG),q,p=2,o=[],n=this,m,l,k,j,i,h,g
 var $async$ki=A.I(function(a,b){if(a===1){o.push(b)
 s=p}for(;;)switch(s){case 0:p=4
 s=7
-return A.M(n.a.x6("/tasks/?limit=100",t.z),$async$ki)
+return A.M(n.a.x6("/tasks",t.z),$async$ki)
 case 7:m=b
 l=m.a
 i=A.aZR(l)
