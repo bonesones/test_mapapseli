@@ -35,6 +35,9 @@
 
   <title>Мапапсели</title>
   <link rel="manifest" href="manifest.json" />
+  <script>
+    const serviceWorkerVersion = '"2755697839"';
+  </script>
 </head>
 
 <body>
@@ -47,6 +50,25 @@
     });
   </script>
   <script src="flutter_bootstrap.js" async></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function (ev) {
+        navigator.serviceWorker.register('/firebase-messaging-sw.js');
+        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
+
+        _flutter.loader.load({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          },
+          onEntrypointLoaded: function (engineInitializer) {
+            engineInitializer.initializeEngine().then(function (appRunner) {
+              appRunner.runApp();
+            });
+          }
+        });
+      });
+    }
+  </script>
 </body>
 
 </html>
