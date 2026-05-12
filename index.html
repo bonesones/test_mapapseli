@@ -21,6 +21,7 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
   <meta name="description" content="Управление временем через игру" />
   <meta name="theme-color" content="#73CDEC" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes" />
@@ -35,40 +36,48 @@
 
   <title>Мапапсели</title>
   <link rel="manifest" href="manifest.json" />
-  <script>
-    const serviceWorkerVersion = '"2872337570"';
-  </script>
 </head>
 
 <body>
   <div id="loading-screen" class="loading-screen">
     <div class="spinner"></div>
   </div>
+
   <script>
-    window.addEventListener("load", () => {
-      document.getElementById("loading-screen").style.display = "none";
+    // Safari bfcache: без перезагрузки часто пустой Canvas. Токен приглашения
+    // после reload подхватывается из sessionStorage (см. InviteTokenService).
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    });
+
+  
+    window.addEventListener(
+      'flutter-first-frame',
+      function () {
+        var el = document.getElementById('loading-screen');
+        if (el) {
+          el.style.display = 'none';
+        }
+      },
+      { once: true },
+    );
+
+    // Если Flutter так и не отрисовался (зависший SW / сеть), не оставляем вечный спиннер.
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var host = document.querySelector('flt-scene-host, flt-glass-pane');
+        var loading = document.getElementById('loading-screen');
+        if (!host && loading && loading.style.display !== 'none') {
+          window.location.reload();
+        }
+      }, 45000);
     });
   </script>
-  <script src="flutter_bootstrap.js" async></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function (ev) {
-        navigator.serviceWorker.register('/firebase-messaging-sw.js');
-        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
 
-        _flutter.loader.load({
-          serviceWorker: {
-            serviceWorkerVersion: serviceWorkerVersion,
-          },
-          onEntrypointLoaded: function (engineInitializer) {
-            engineInitializer.initializeEngine().then(function (appRunner) {
-              appRunner.runApp();
-            });
-          }
-        });
-      });
-    }
-  </script>
+  <!-- Только bootstrap: сам регистрирует flutter_service_worker и вызывает _flutter.loader.load. -->
+  <script src="flutter_bootstrap.js" async></script>
 </body>
 
 </html>
