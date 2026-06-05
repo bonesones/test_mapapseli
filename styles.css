@@ -28,3 +28,16 @@
     transform: rotate(360deg);
   }
 }
+
+/* html5-qrcode: видео на весь экран, без встроенной рамки библиотеки */
+[id^="mapapseli-qr-"] video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+[id^="mapapseli-qr-"] #qr-shaded-region,
+[id^="mapapseli-qr-"] #qr-scan-region-highlight,
+[id^="mapapseli-qr-"] #qr-scan-region-highlight-svg {
+  display: none !important;
+}
