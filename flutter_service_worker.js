@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"assets/AssetManifest.bin": "5701e7b675cdcabc8f6f3a1742396f01",
-"assets/AssetManifest.bin.json": "46b57a02b7b634b53c133b0f587ae743",
+const RESOURCES = {"assets/AssetManifest.bin": "7305b4adaa67991fd07d73557ca5d34f",
+"assets/AssetManifest.bin.json": "0b08c6fc411625314b7547f8fd6512c9",
 "assets/assets/fonts/Inter-Bold.otf": "d759e235e88e47f838062c7ab97308b1",
 "assets/assets/fonts/Inter-Light.otf": "d7019947105844db1899d246172f06b4",
 "assets/assets/fonts/Inter-Medium.otf": "ef3d193e6a6ad033724c7872aec1cff7",
@@ -30,6 +30,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "5701e7b675cdcabc8f6f3a1742396f01
 "assets/assets/icons/message-circle.svg": "2e6a233379a9d4ca8b39cd58700e6231",
 "assets/assets/icons/paperclip.svg": "eac3adeacd3c50df6aeb8c74510a0833",
 "assets/assets/icons/phone.svg": "038fda626daac772a6e13d6929ac9058",
+"assets/assets/icons/QR_code.svg": "5e68d854826224170543e443167ee171",
 "assets/assets/icons/settings.svg": "b5f45b72f36eed06474c60f50c0ca9e7",
 "assets/assets/icons/shopping-bag.svg": "6933780cdf75b6d7b8e3b257cf4daa7a",
 "assets/assets/icons/smile.svg": "4c91ae144ce128cccba031b45b28ffe8",
@@ -45,7 +46,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "5701e7b675cdcabc8f6f3a1742396f01
 "assets/assets/icons/x.svg": "b9f91041c6f90847a3f746b8d7f2c5da",
 "assets/FontManifest.json": "131503634fb0233bfb7384a4e1eba1a0",
 "assets/fonts/MaterialIcons-Regular.otf": "9d8cccfa92dc2a73cce8684f637b6e3a",
-"assets/NOTICES": "92c1b2c0d14956f2cd9140d514351ee9",
+"assets/NOTICES": "3a8fb72ee63a72f4f3a92081afe5d967",
 "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
 "assets/shaders/stretch_effect.frag": "40d68efbbf360632f614c731219e95f0",
 "canvaskit/canvaskit.js": "8331fe38e66b3a898c4f37648aaf7ee2",
@@ -63,12 +64,12 @@ const RESOURCES = {"assets/AssetManifest.bin": "5701e7b675cdcabc8f6f3a1742396f01
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "firebase-messaging-sw.js": "6f506368209cab1f8b4a6ae9fb9bba97",
 "flutter.js": "24bc71911b75b5f8135c949e27a2984e",
-"flutter_bootstrap.js": "0f5635f095d1391213bc7b0644d10d10",
+"flutter_bootstrap.js": "589a1fdfecfb52693799eae176d5c532",
 "icons/Icon-192.png": "d4fa37259012e46babde64d31e9a3b29",
 "icons/Icon-512.png": "eb544bf940ce4b90655e62a601d37b2e",
 "index.html": "546f8007ff958070a7a4c9ab638e4405",
 "/": "546f8007ff958070a7a4c9ab638e4405",
-"main.dart.js": "e3e055cef034320177d3a2175c5ef887",
+"main.dart.js": "900fd12c7b9c10db387587603b0b84c5",
 "manifest.json": "36304d1c783d549b0d7a8e31667419ee",
 "styles.css": "99d8ac1b1f4f79663b7008b5cc71bec9",
 "version.json": "8242d4ad5074ad0d35494de9e84c34ad"};
