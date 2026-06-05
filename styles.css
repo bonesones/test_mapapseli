@@ -43,7 +43,9 @@
 
 [id^="mapapseli-qr-"] #qr-shaded-region,
 [id^="mapapseli-qr-"] #qr-scan-region-highlight,
-[id^="mapapseli-qr-"] #qr-scan-region-highlight-svg {
+[id^="mapapseli-qr-"] #qr-scan-region-highlight-svg,
+[id^="mapapseli-qr-"] [id^="qr-shaded-region"] {
   display: none !important;
+  opacity: 0 !important;
   pointer-events: none !important;
 }
