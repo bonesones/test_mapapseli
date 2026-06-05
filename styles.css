@@ -29,15 +29,21 @@
   }
 }
 
-/* html5-qrcode: видео на весь экран, без встроенной рамки библиотеки */
+/* html5-qrcode: видео на весь экран, без встроенного затемнения библиотеки */
+[id^="mapapseli-qr-"] {
+  position: relative !important;
+}
+
 [id^="mapapseli-qr-"] video {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
+  display: block !important;
 }
 
 [id^="mapapseli-qr-"] #qr-shaded-region,
 [id^="mapapseli-qr-"] #qr-scan-region-highlight,
 [id^="mapapseli-qr-"] #qr-scan-region-highlight-svg {
   display: none !important;
+  pointer-events: none !important;
 }
