@@ -44,8 +44,14 @@
   object-fit: cover;
 }
 
-[id^="mapapseli-qr-"] video::-webkit-media-controls {
+video::-webkit-media-controls {
   display: none !important;
+}
+
+video {
+  -webkit-playsinline: true;
+  playsinline: true;
+  object-fit: cover;
 }
 
 [id^="mapapseli-qr-"] #qr-shaded-region,
