@@ -1,8 +1,7 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
-  <!--
+  <head>
+    <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
 
@@ -15,71 +14,72 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="/test_mapapseli/" />
+    <base href="/test_mapapseli/" />
 
-  <meta charset="UTF-8" />
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
-  <meta name="description" content="Управление временем через игру" />
-  <meta name="theme-color" content="#73CDEC" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta http-equiv="Permissions-Policy" content="camera=(self)" />
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="Управление временем через игру" />
+    <meta name="theme-color" content="#73CDEC" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta http-equiv="Permissions-Policy" content="camera=(self)" />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <meta name="apple-mobile-web-app-title" content="Мапапсели" />
-  <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+    <!-- iOS meta tags & icons -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Мапапсели" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>Мапапсели</title>
-  <link rel="manifest" href="manifest.json" />
-</head>
+    <title>Мапапсели</title>
+    <link rel="manifest" href="manifest.json" />
+  </head>
 
-<body>
-  <div id="loading-screen" class="loading-screen">
-    <div class="spinner"></div>
-  </div>
+  <body>
+    <div id="loading-screen" class="loading-screen">
+      <div class="spinner"></div>
+    </div>
 
-  <script>
-    // Safari bfcache: без перезагрузки часто пустой Canvas. Токен приглашения
-    // после reload подхватывается из sessionStorage (см. InviteTokenService).
-    window.addEventListener('pageshow', function (event) {
-      if (event.persisted) {
-        window.location.reload();
-      }
-    });
-
-  
-    window.addEventListener(
-      'flutter-first-frame',
-      function () {
-        var el = document.getElementById('loading-screen');
-        if (el) {
-          el.style.display = 'none';
-        }
-      },
-      { once: true },
-    );
-
-    // Если Flutter так и не отрисовался (зависший SW / сеть), не оставляем вечный спиннер.
-    window.addEventListener('load', function () {
-      setTimeout(function () {
-        var host = document.querySelector('flt-scene-host, flt-glass-pane');
-        var loading = document.getElementById('loading-screen');
-        if (!host && loading && loading.style.display !== 'none') {
+    <script>
+      // Safari bfcache: без перезагрузки часто пустой Canvas. Токен приглашения
+      // после reload подхватывается из sessionStorage (см. InviteTokenService).
+      window.addEventListener("pageshow", function (event) {
+        if (event.persisted) {
           window.location.reload();
         }
-      }, 45000);
-    });
-  </script>
+      });
 
-  <script src="js/qr_scanner.js"></script>
-  <!-- Только bootstrap: сам регистрирует flutter_service_worker и вызывает _flutter.loader.load. -->
-  <script src="flutter_bootstrap.js" async></script>
-</body>
+      window.addEventListener(
+        "flutter-first-frame",
+        function () {
+          var el = document.getElementById("loading-screen");
+          if (el) {
+            el.style.display = "none";
+          }
+        },
+        { once: true },
+      );
 
+      // Если Flutter так и не отрисовался (зависший SW / сеть), не оставляем вечный спиннер.
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          var host = document.querySelector("flt-scene-host, flt-glass-pane");
+          var loading = document.getElementById("loading-screen");
+          if (!host && loading && loading.style.display !== "none") {
+            window.location.reload();
+          }
+        }, 45000);
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js"></script>
+    <!-- Только bootstrap: сам регистрирует flutter_service_worker и вызывает _flutter.loader.load. -->
+    <script src="flutter_bootstrap.js" async></script>
+  </body>
 </html>
