@@ -126,26 +126,35 @@
   }
 
   async function pickBackCameraId() {
-    var cameras = await Html5Qrcode.getCameras();
-    if (!cameras || cameras.length === 0) return null;
+    try {
+      const cameras = await Html5Qrcode.getCameras();
+      if (!cameras || cameras.length === 0) return null;
 
-    for (var i = 0; i < cameras.length; i++) {
-      var label = (cameras[i].label || "").toLowerCase();
-      if (
-        label.indexOf("back") >= 0 ||
-        label.indexOf("rear") >= 0 ||
-        label.indexOf("environment") >= 0 ||
-        label.indexOf("задн") >= 0
-      ) {
-        return cameras[i].id;
+      console.log("Available cameras:", cameras);
+      alert("Available cameras: " + cameras);
+
+      // Приоритет задней камере
+      for (const camera of cameras) {
+        const label = (camera.label || "").toLowerCase();
+        if (
+          label.includes("back") ||
+          label.includes("rear") ||
+          label.includes("environment") ||
+          label.includes("задн") ||
+          label.includes("основн") ||
+          label.includes("0") || // часто задняя — 0
+          !label.includes("front")
+        ) {
+          console.log("Selected camera:", camera.label);
+          return camera.id;
+        }
       }
-    }
 
-    if (cameras.length > 1) {
-      return cameras[cameras.length - 1].id;
+      return cameras[cameras.length - 1]?.id || null; // последняя обычно задняя
+    } catch (e) {
+      console.warn("Failed to get cameras", e);
+      return null;
     }
-
-    return null;
   }
 
   function watchOverlayRemoval(elementId) {
@@ -170,9 +179,10 @@
   }
 
   async function startWithCamera(html5QrCode, cameraIdOrConfig) {
-    var scanConfig = {
-      fps: 15,
-      disableFlip: false,
+    const scanConfig = {
+      fps: 20,
+      qrbox: { width: 320, height: 320 },
+      aspectRatio: 1.0,
     };
 
     if (window.Html5QrcodeSupportedFormats) {
@@ -182,10 +192,23 @@
     await html5QrCode.start(
       cameraIdOrConfig,
       scanConfig,
-      function (decodedText) {
+      function (decodedText, decodedResult) {
+        console.log(
+          "%c✅ QR DETECTED!",
+          "color:lime;font-weight:bold",
+          decodedText,
+        );
+        alert("QR detected:\n" + decodedText);
         dispatch(decodedText);
       },
-      function () {},
+      function (errorMessage) {
+        if (
+          !errorMessage.includes("No MultiFormat Readers") &&
+          !errorMessage.includes("QR code parse error")
+        ) {
+          console.warn("SCAN:", errorMessage);
+        }
+      },
     );
   }
 
@@ -196,52 +219,80 @@
       await ensureLibrary();
       await stopAll();
 
-      var container = document.getElementById(elementId);
+      console.log("Starting QR scanner for:", elementId);
 
+      let container = document.getElementById(elementId);
+      if (!container) {
+        container = document.querySelector('[id^="mapapseli-qr-"]');
+      }
       if (!container) {
         throw new Error("QR container not found: " + elementId);
+        alert("QR container not found: " + elementId);
       }
 
       container.innerHTML = "";
+      container.style.position = "relative";
+      container.style.overflow = "hidden";
+      container.style.backgroundColor = "#000";
 
       var html5QrCode = new Html5Qrcode(elementId, { verbose: false });
       scanners.set(elementId, html5QrCode);
 
-      var started = false;
-      var cameraAttempts = [
-        { facingMode: { exact: "environment" } },
-        { facingMode: "environment" },
-      ];
+      const scanConfig = {
+        fps: 20,
+        qrbox: { width: 320, height: 320 },
+        aspectRatio: 1.0,
+        disableFlip: false,
+      };
 
-      for (var i = 0; i < cameraAttempts.length; i++) {
-        try {
-          await startWithCamera(html5QrCode, cameraAttempts[i]);
-          started = true;
-          break;
-        } catch (e) {
-          console.warn("QR environment camera failed", cameraAttempts[i], e);
-        }
+      if (window.Html5QrcodeSupportedFormats) {
+        scanConfig.formatsToSupport = [Html5QrcodeSupportedFormats.QR_CODE];
       }
 
-      if (!started) {
-        await warmUpEnvironmentCamera();
-        var backCameraId = await pickBackCameraId();
-        if (backCameraId) {
-          try {
-            await startWithCamera(html5QrCode, backCameraId);
-            started = true;
-          } catch (e) {
-            console.warn("QR back camera id failed", backCameraId, e);
+      // === Улучшенная логика выбора камеры ===
+      const cameraAttempts = [
+        { facingMode: { exact: "environment" } }, // 1. Строго задняя
+        { facingMode: "environment" }, // 2. Предпочтительно задняя
+        { facingMode: "user" }, // 3. Фронтальная как fallback
+        true, // 4. Автоматический выбор (лучшая доступная)
+      ];
+
+      let started = false;
+
+      for (let attempt of cameraAttempts) {
+        try {
+          console.log("Trying camera config:", attempt);
+          alert("Trying camera config: " + attempt);
+          await startWithCamera(html5QrCode, attempt);
+          started = true;
+          console.log("✅ Camera started successfully with config:", attempt);
+          alert("Camera started successfully with config: " + attempt);
+          break;
+        } catch (e) {
+          console.warn("Camera attempt failed:", attempt, e.name || e);
+          alert("Camera attempt failed: " + attempt + " " + (e.name || e));
+          if (e.name === "OverconstrainedError") {
+            continue; // пробуем следующий вариант
           }
         }
       }
 
       if (!started) {
-        scanners.delete(elementId);
+        // Последняя попытка через ID камеры
         try {
-          html5QrCode.clear();
-        } catch (e) {}
-        throw new Error("Unable to start back camera for QR scanning");
+          const backCameraId = await pickBackCameraId();
+          if (backCameraId) {
+            await startWithCamera(html5QrCode, backCameraId);
+            started = true;
+          }
+        } catch (e) {
+          console.warn("Back camera ID attempt failed", e);
+        }
+      }
+
+      if (!started) {
+        scanners.delete(elementId);
+        throw new Error("Unable to start camera for QR scanning");
       }
 
       removeLibraryOverlay(elementId);
