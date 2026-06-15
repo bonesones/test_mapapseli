@@ -9,13 +9,12 @@ importScripts(
 );
 
 firebase.initializeApp({
-  apiKey: "AIzaSyArgoetIZ9dPxHtVI0TOJVCEcgnw3mvmC0",
-  appId: "1:663146901245:web:5d5e3c39cfb1c5925ed894",
-  messagingSenderId: "663146901245",
-  projectId: "mapapseli",
-  authDomain: "mapapseli.firebaseapp.com",
-  storageBucket: "mapapseli.firebasestorage.app",
-  measurementId: "G-X2312HWC75",
+  apiKey: "AIzaSyAbXUIqvHJVBYv2ggHhyVIDOMQ196ptNjA",
+  authDomain: "mapapseli-99e4a.firebaseapp.com",
+  projectId: "mapapseli-99e4a",
+  storageBucket: "mapapseli-99e4a.firebasestorage.app",
+  messagingSenderId: "183073830587",
+  appId: "1:183073830587:web:faea59a89558c5e2295b9e",
 });
 
 const messaging = firebase.messaging();
